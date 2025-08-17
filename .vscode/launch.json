@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot App",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/backend",
+      "mainClass": "com.ordersystem.backend.OrderSystemBackendApplication",
+      "projectName": "order-system-backend",
+      "args": "",
+      "envFile": "${workspaceFolder}/backend/.env"
+    }
+  ]
+}

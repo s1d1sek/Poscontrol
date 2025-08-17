@@ -1,0 +1,12 @@
+{
+  "java.jdt.ls.java.home": "/usr/lib/jvm/java-21-openjdk",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/usr/lib/jvm/java-21-openjdk"
+    }
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "angular.enable-strict-mode-prompt": false,
+  "java.compile.nullAnalysis.mode": "automatic"
+}
