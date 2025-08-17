@@ -10,11 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-// JpaRepository provides: save(), findAll(), findById(), deleteById(), etc.
 public interface OrderRepository extends JpaRepository<Order, Long> {
     
     // Find orders within a date range
-    // This is useful for daily/monthly reports
     List<Order> findByOrderDateBetween(LocalDateTime startDate, LocalDateTime endDate);
     
     // Find all orders for a specific customer (case-insensitive)
@@ -26,8 +24,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // Find orders by customer name (partial match, case-insensitive)
     List<Order> findByCustomerNameContainingIgnoreCase(String name);
     
-    // Custom query to find today's orders
-    @Query("SELECT o FROM Order o WHERE DATE(o.orderDate) = CURRENT_DATE ORDER BY o.orderDate DESC")
+    // FIXED: Custom query to find today's orders using native SQL
+    @Query(value = "SELECT * FROM orders WHERE DATE(order_date) = CURRENT_DATE ORDER BY order_date DESC", nativeQuery = true)
     List<Order> findTodaysOrders();
     
     // Find orders with total amount greater than specified value
