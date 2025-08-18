@@ -1,0 +1,59 @@
+<div class="order-list">
+  <h2>Order History</h2>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Loading orders...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && orders.length > 0" class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Customer</th>
+          <th>Total</th>
+          <th>Items</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>#{{ order.id }}</td>
+          <td>{{ order.orderDate | date:'short' }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>${{ order.totalAmount }}</td>
+          <td>{{ order.orderItems.length || 0 }} items</td>
+          <td>
+            <span class="badge bg-{{ getStatusColor(order.status) }}">
+              {{ order.status }}
+            </span>
+          </td>
+          <td>
+            <button 
+              *ngIf="order.status === 'PENDING'" 
+              class="btn btn-sm btn-success me-1"
+              (click)="completeOrder(order.id!)">
+              Complete
+            </button>
+            <button 
+              *ngIf="order.status === 'PENDING'" 
+              class="btn btn-sm btn-danger"
+              (click)="cancelOrder(order.id!)">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && orders.length === 0" class="alert alert-info">
+    No orders found. Create your first order!
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="product-list">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Products</h2>
+    <a routerLink="/products/new" class="btn btn-primary">
+      + Add New Product
+    </a>
+  </div>
+  
+  <div *ngIf="loading" class="alert alert-info">
+    Loading products...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && products.length > 0" class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Min Stock</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>${{ product.price }}</td>
+          <td>{{ product.stockQuantity }}</td>
+          <td>{{ product.minStockLevel }}</td>
+          <td>
+            <span *ngIf="product.stockQuantity <= product.minStockLevel" class="badge bg-warning">
+              Low Stock
+            </span>
+            <span *ngIf="product.stockQuantity > product.minStockLevel" class="badge bg-success">
+              In Stock
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0" class="alert alert-info">
+    No products found. <a routerLink="/products/new">Add your first product!</a>
+  </div>
+</div>

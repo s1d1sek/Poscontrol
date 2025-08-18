@@ -1,0 +1,95 @@
+<div class="order-form-container">
+  <h2>Create New Order</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div class="card mb-3">
+      <div class="card-header">Customer Information</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Customer Name *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="customerName"
+              placeholder="Enter customer name">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email (Optional)</label>
+            <input 
+              type="email" 
+              class="form-control" 
+              formControlName="customerEmail"
+              placeholder="customer@example.com">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Order Items
+        <button 
+          type="button" 
+          class="btn btn-sm btn-primary float-end"
+          (click)="addOrderItem()">
+          + Add Item
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="orderItems">
+          <div 
+            *ngFor="let item of orderItems.controls; let i = index" 
+            [formGroupName]="i"
+            class="row mb-2">
+            <div class="col-md-6">
+              <select class="form-select" formControlName="productId">
+                <option value="">Select Product</option>
+                <option *ngFor="let product of products" [value]="product.id">
+                  {{ product.name }} - ${{ product.price }} 
+                  (Stock: {{ product.stockQuantity }})
+                </option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <input 
+                type="number" 
+                class="form-control" 
+                formControlName="quantity"
+                placeholder="Quantity"
+                min="1">
+            </div>
+            <div class="col-md-2">
+              <button 
+                type="button" 
+                class="btn btn-danger"
+                (click)="removeOrderItem(i)">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <h4>Total: ${{ calculateTotal().toFixed(2) }}</h4>
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      class="btn btn-success btn-lg"
+      [disabled]="!orderForm.valid || orderItems.length === 0">
+      Create Order
+    </button>
+  </form>
+</div>
