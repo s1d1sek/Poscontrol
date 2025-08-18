@@ -1,59 +1,106 @@
+cat > ~/posfolder/README.md << 'EOF'
 # POS Control System
 
-A full-stack Point of Sale system with inventory management.
+A full-stack Point of Sale (POS) system with inventory management built with Angular and Spring Boot.
 
-## Technologies
-- Backend: Java Spring Boot, PostgreSQL
-- Frontend: Angular 17+, Bootstrap
+## Technologies Used
 
-## Setup Instructions
+- **Frontend**: Angular 17+, TypeScript, Bootstrap 5
+- **Backend**: Java 21, Spring Boot 3, Spring Data JPA
+- **Database**: PostgreSQL
+- **Build Tools**: Maven, npm
 
-### Prerequisites
+## Features
+
+- ✅ Product Management (CRUD operations)
+- ✅ Order Processing
+- ✅ Inventory Tracking
+- ✅ Low Stock Alerts
+- ✅ Order History
+- ✅ Real-time Stock Updates
+
+## Prerequisites
+
 - Java 21
 - Node.js 18+
 - PostgreSQL
 - Maven
 
-### Backend Setup
+## Installation & Setup
+
+### 1. Clone the repository
 ```bash
-cd backend
-./mvnw spring-boot:run
-### 6. **Fix Commands to Run Everything**
+git clone https://github.com/s1d1sek/Poscontrol.git
+cd Poscontrol
+## 3. What's Next? Here are the next features to implement:
 
-Create a script to start both servers:
+### **Phase 1: Core Enhancements** (Next Week)
+1. **Add Product Management UI**
+   - Create a form to add/edit products directly from the UI
+   - Add delete product functionality with confirmation
+   - Implement product search and filtering
+
+2. **Improve Order Management**
+   - Add order details view (click on order to see items)
+   - Add receipt printing functionality
+   - Implement order editing before completion
+
+3. **Dashboard**
+   - Create a home dashboard with key metrics
+   - Today's sales, total revenue
+   - Low stock alerts
+   - Recent orders
+
+### **Phase 2: Authentication & Security** (Week 2)
+1. **User Authentication**
+   - Add Spring Security to backend
+   - Create login/register pages
+   - Implement JWT tokens
+   - Role-based access (Admin, Cashier)
+
+2. **User Management**
+   - Admin can create/manage users
+   - Track which user created each order
+   - User activity logs
+
+### **Phase 3: Advanced Features** (Week 3-4)
+1. **Reports & Analytics**
+   - Daily/Weekly/Monthly sales reports
+   - Best selling products
+   - Revenue charts using Chart.js
+   - Export reports to PDF/Excel
+
+2. **Inventory Management**
+   - Stock adjustment features
+   - Purchase orders
+   - Supplier management
+   - Stock movement history
+
+3. **Customer Management**
+   - Customer database
+   - Customer purchase history
+   - Loyalty points system
+
+### **Phase 4: Business Features** (Month 2)
+1. **Payment Processing**
+   - Multiple payment methods
+   - Split payments
+   - Refunds and returns
+
+2. **Barcode Support**
+   - Generate product barcodes
+   - Barcode scanning for quick add
+
+3. **Multi-store Support**
+   - Manage multiple locations
+   - Transfer stock between stores
+
+## 4. Immediate Next Steps (Today):
+
+Let's add a **Product Management Form** to add products from the UI instead of using curl:
+
+### Create Product Form Component:
 
 ```bash
-# Create start.sh in the root directory
-cat > ~/posfolder/start.sh << 'EOF'
-#!/bin/bash
-
-echo "Starting POS Control System..."
-
-# Start backend
-echo "Starting backend server..."
-cd backend && ./mvnw spring-boot:run &
-BACKEND_PID=$!
-
-# Wait for backend to start
-sleep 10
-
-# Start frontend
-echo "Starting frontend server..."
-cd frontend/order-system-frontend && ng serve &
-FRONTEND_PID=$!
-
-echo "Backend PID: $BACKEND_PID"
-echo "Frontend PID: $FRONTEND_PID"
-echo "System is running!"
-echo "Frontend: http://localhost:4200"
-echo "Backend: http://localhost:8080"
-
-# Wait for user input to stop
-read -p "Press Enter to stop all servers..."
-
-# Kill both processes
-kill $BACKEND_PID
-kill $FRONTEND_PID
-EOF
-
-chmod +x ~/posfolder/start.sh
+cd ~/posfolder/frontend/order-system-frontend
+ng generate component components/product-form --standalone
