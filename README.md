@@ -40,7 +40,7 @@ cd backend
 mvn spring-boot:run
 
 Run the frontend (Angular)
-cd frontend
+cd frontend/order-system-frontend
 npm install
 ng serve --open
 
